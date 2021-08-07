@@ -1,0 +1,253 @@
+<%- include("header") %>
+<style>
+  
+    input {
+        outline: none;
+        margin: 0;
+        border: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        width: 100%;
+        font-size: 14px;
+        font-family: inherit;
+     }
+     body {
+              font-family: 'Recursive', sans-serif;
+              font-size: larger;
+          }
+  
+          .customborder {
+              border-radius: 2%;
+              border: 2px solid #E95420;
+          }
+/*   
+          .card {
+              background: #212529;
+              border-radius: 10px;
+              margin-top: 50px;
+              padding-top: 10px;
+              text-align: centre;
+              padding-bottom: 20px;
+              box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 40px 20px 0px rgba(0, 0, 0, 0.19);
+              width: 75%;
+              margin-left: 10%;
+          } */
+/*   
+          .card-header {
+              font-weight: bold;
+              color: white;
+              font-size: 50px;
+          } */
+  
+          .btn {
+              width: 100%;
+              align-items: center;
+              background: #212529;
+              border: none;
+  
+          }
+/*   
+          .card-text {
+              text-color: #fff;
+              text-align: center;
+          }
+  
+          .card-title {
+              color: white;
+              font-weight: bold;
+              text-align: center;
+              padding-bottom: 10px;
+          } */
+  
+          .card-body {
+              color: white;
+              padding: 25px;
+          }
+  
+          .card:hover {
+              transform: scale(1.05);
+              box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+          }
+  
+          .column {
+              float: left;
+              width: 50%;
+          }
+  
+          /* Clear floats after the columns */
+          .row:after {
+              content: "";
+              display: table;
+              clear: both;
+          }
+     .input--style-4 {
+        line-height: 50px;
+        background: rgba(255, 255, 255, 0);
+        ;
+        -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+        -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+        box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        padding: 0px 20px;
+        font-size: 16px;
+        border-bottom-style: solid;
+        border-bottom-width: thin;
+        border-bottom-color: black;
+        border-top-color: black;
+        border-radius: 15px;
+        color: #fff;
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        -moz-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+     }
+     .label {
+        font-size: 21px;
+        color: #fff;
+        text-transform: capitalize;
+        display: block;
+        margin-bottom: 5px;
+     }
+     /* ==========================================================================
+     #RESET
+     ========================================================================== */
+     /**
+   * A very simple reset that sits on top of Normalize.css.
+   */
+  
+   
+  </style>
+  
+  <body>
+    <header id="header" class="d-flex align-items-center ">
+      <div class="container-fluid d-flex align-items-center justify-content-lg-between">
+        <a href="/" class="logo me-auto me-lg-0"><img src="assets/img/logo.jpg" alt="" class="img-fluid"></a>
+        <h1 class="logo me-auto me-lg-0"><a href="/">The Laali Project</a></h1>
+  
+        <nav id="navbar" class="navbar order-last order-lg-0">
+          <ul>
+            <li><a class="nav-link scrollto active" href="/admin/users">Users</a></li>
+            <li><a class="nav-link scrollto " href="/admin/pendingAlumni">Alumni requests</a></li>
+            <li><a class="nav-link scrollto " href="/admin/mentee-mentor">M-M Fix</a></li>
+            <li><a class="nav-link scrollto " href="/admin/job_events">Opportunity Hub</a></li>
+            <li><a class="nav-link scrollto " href="/logout">Log Out</a></li>
+            
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+  
+        <div class="header-social-links d-flex align-items-center">
+          <a href="https://twitter.com/thelaaliproject?lang=en" class="twitter"><i class="bi bi-twitter"></i></a>
+          <a href="https://www.facebook.com/thelaaliproject/" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/thelaaliproject/" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/the-laaliproject/?originalSubdomain=in" class="linkedin"><i
+              class="bi bi-linkedin"></i></i></a>
+        </div>
+  
+      </div>
+    </header>
+    <!-- ======= Hero Section ======= -->
+    
+    <div class="container">
+      <!-- show a dialog if user is not verified  -->
+  
+  
+  
+  
+      <div class="accordion" style="padding-bottom:25px" id="accordionExample">
+          <p style="font-weight:bold; font-size: xx-large;">All Users</p>
+  
+          <!-- <input class="form-control" id="myInput" type="text" placeholder="Search.." style="margin: 5px;"> -->
+
+          <div id="myDIV">
+              <div class="row">
+                <% for( var users of data ) { %>
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <div class="card border-dark mb-3" style="max-width: 18rem;">
+                          <div class="card-header text-center"><%= users.name %></div>
+                          <div class="card-body text-dark">
+                            <p class="card-text">Email: <%= users.email %><br/>Designation: <%= users.designation %><br/>
+                              <form action="/admin/delete-user" method="POST">
+                                <input type="hidden" name="id" value="<%= users.id %>">
+                                <button type="submit" class="btn btn-outlined dark" style="color: white;background:linear-gradient(60deg, #68345c, #5e0443);">Delete</button>
+                              </form>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                  <% } %> 
+                  
+  
+              </div>
+              
+          </div>
+  
+  
+  
+  
+          <!-- background:linear-gradient(60deg, #288c6c, #4ea752) -->
+  
+  
+  
+      </div>
+  
+  
+  </div>
+  
+  
+  </div>
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"></script>
+  <script>
+     
+  
+      $(document).ready(function () {
+          $("#myInput").on("keyup", function () {
+              var value = $(this).val().toLowerCase();
+              $("#myDIV *").filter(function () {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+          });
+      });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"></script>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  
+  
+    <!-- ======= Header ======= -->
+    <!-- End Header -->
+    <!-- ======= About Section ======= -->
+    
+  
+  
+  
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/purecounter/purecounter.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  
+  </body>
+  
+  </html>

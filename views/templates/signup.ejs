@@ -1,0 +1,962 @@
+<%- include("header") %>
+<style>
+  .container {
+    width: 750px;
+    height: 85%;
+    margin-left: 350px;
+    background-color: #e0455f;
+    background-image: linear-gradient(147deg, #eee7e8 0%, #e2d7d9 74%);
+
+    position: absolute;
+    border-radius: 5px;
+    padding: 20px 15px 10px 15px;
+  }
+
+  .container header {
+    font-size: 35px;
+    font-weight: 600;
+    color: #000;
+    margin: 0 0 -6px 0;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container .form-outer {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .container .form-outer form {
+    display: flex;
+    width: 400%;
+  }
+
+  .form-outer form .page {
+    width: 25%;
+    transition: margin-left 0.3s ease-in-out;
+  }
+
+  .form-outer form .page .title {
+    text-align: left;
+    font-size: 25px;
+    font-weight: 500;
+  }
+
+
+  .form-outer form .page .field {
+    width: 330px;
+    height: 45px;
+    margin: 45px 0;
+    display: flex;
+    position: relative;
+  }
+
+  form .page .field .label {
+    position: absolute;
+    top: -30px;
+    font-weight: 500;
+  }
+
+  form .page .field input {
+    height: 100%;
+    width: 100%;
+    border: 1px solid rgb(41, 37, 37);
+    border-radius: 5px;
+    padding-left: 5px;
+    font-size: 18px;
+  }
+
+  form .page .field select {
+    width: 100%;
+    padding-left: 5px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  form .page .field button {
+    width: 100%;
+    height: calc(100% + 5px);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e0455f;
+    margin-left: 320px;
+    margin-top: -10px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s ease;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form .page .field button:hover {
+    background: #000;
+  }
+
+  form .page .btns button {
+    margin-top: -20px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form .page .btns button.prev {
+
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form .page .btns button.next {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container .progress-bar {
+    display: flex;
+    margin: 40px 0;
+    user-select: none;
+  }
+
+  .container .progress-bar .step {
+    text-align: center;
+    width: 100%;
+    position: relative;
+  }
+
+  .container .progress-bar .step p {
+    font-weight: 500;
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 4px;
+  }
+
+  .row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .row-space {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+
+  .col-2 {
+    width: -webkit-calc((100% - 30px) / 2);
+    width: -moz-calc((100% - 30px) / 2);
+    width: calc((100% - 30px) / 2);
+  }
+
+  @media (max-width: 767px) {
+    .col-2 {
+      width: 100%;
+    }
+  }
+
+  /* ==========================================================================
+   #BOX-SIZING
+   ========================================================================== */
+  /**
+ * More sensible default box-sizing:
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+ */
+  html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  *,
+  *:before,
+  *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+
+  /* ==========================================================================
+   #RESET
+   ========================================================================== */
+  /**
+ * A very simple reset that sits on top of Normalize.css.
+ */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  blockquote,
+  p,
+  pre,
+  dl,
+  dd,
+  ol,
+  ul,
+  figure,
+  hr,
+  fieldset,
+  legend {
+    margin: 0;
+    padding: 0;
+  }
+
+  /**
+ * Remove trailing margins from nested lists.
+ */
+  li>ol,
+  li>ul {
+    margin-bottom: 0;
+  }
+
+  /**
+ * Remove default table spacing.
+ */
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  /**
+ * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+ *    on fieldsets.
+ */
+  fieldset {
+    min-width: 0;
+    /* [1] */
+    border: 0;
+  }
+
+  button {
+    outline: none;
+    background: none;
+    border: none;
+  }
+
+  /* ==========================================================================
+   #PAGE WRAPPER
+   ========================================================================== */
+  .page-wrapper {
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+
+  h5 {
+    font-size: 15px;
+  }
+
+  h6 {
+    font-size: 13px;
+  }
+
+  /* ==========================================================================
+   #BACKGROUND
+   ========================================================================== */
+
+
+  /* ==========================================================================
+   #SPACING
+   ========================================================================== */
+  .p-t-100 {
+    padding-top: 100px;
+  }
+
+  .p-t-130 {
+    padding-top: 130px;
+  }
+
+  .p-t-180 {
+    padding-top: 180px;
+  }
+
+  .p-t-20 {
+    padding-top: 20px;
+  }
+
+  .p-t-15 {
+    padding-top: 15px;
+  }
+
+  .p-t-10 {
+    padding-top: 10px;
+  }
+
+  .p-t-30 {
+    padding-top: 30px;
+  }
+
+  .p-b-100 {
+    padding-bottom: 100px;
+  }
+
+  .m-r-45 {
+    margin-right: 45px;
+  }
+
+  /* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+  .wrapper {
+    margin: 0 auto;
+  }
+
+  .wrapper--w960 {
+    max-width: 960px;
+  }
+
+  .wrapper--w780 {
+    max-width: 780px;
+  }
+
+  .wrapper--w680 {
+    max-width: 680px;
+  }
+
+  /* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+  .btn {
+    display: inline-block;
+    line-height: 50px;
+    padding: 0 20px;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+  }
+
+  .btn--radius {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+
+  .btn--radius-2 {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .btn--pill {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+
+  .btn--green {
+    background: #57b846;
+  }
+
+  .btn--green:hover {
+    background: #4dae3c;
+  }
+
+  .btn--blue {
+    background: #4272d7;
+  }
+
+  .btn--blue:hover {
+    background: #3868cd;
+  }
+
+  /* ==========================================================================
+   #DATE PICKER
+   ========================================================================== */
+  td.active {
+    background-color: #2c6ed5;
+  }
+
+  input[type="date"i] {
+    padding: 14px;
+  }
+
+  .table-condensed td,
+  .table-condensed th {
+    font-size: 14px;
+    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+  }
+
+  .daterangepicker td {
+    width: 40px;
+    height: 30px;
+  }
+
+  .daterangepicker {
+    border: none;
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    display: none;
+    border: 1px solid #e0e0e0;
+    margin-top: 5px;
+  }
+
+  .daterangepicker::after,
+  .daterangepicker::before {
+    display: none;
+  }
+
+  .daterangepicker thead tr th {
+    padding: 10px 0;
+  }
+
+  .daterangepicker .table-condensed th select {
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 5px;
+    outline: none;
+  }
+
+  /* ==========================================================================
+   #FORM
+   ========================================================================== */
+  input {
+    outline: none;
+    margin: 0;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    width: 100%;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  .input--style-4 {
+    line-height: 50px;
+    background: rgba(255, 255, 255, 0);
+    ;
+    -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    padding: 0px 20px;
+    font-size: 16px;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    border-bottom-color: black;
+    border-top-color: black;
+    border-radius: 15px;
+    color: #000;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+  }
+
+  .input--style-5 {
+    line-height: 50px;
+    width: 500px;
+    background: #fff;
+    -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 0px 20px;
+    font-size: 16px;
+    color: #666;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+  }
+
+  .input--style-4::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #666;
+  }
+
+  .input--style-4:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #666;
+    opacity: 1;
+  }
+
+  .input--style-4::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #666;
+    opacity: 1;
+  }
+
+  .input--style-4:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #666;
+  }
+
+  .input--style-4:-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #666;
+  }
+
+  .label {
+    font-size: 21px;
+    color: #000;
+    text-transform: capitalize;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .radio-container {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #e0455f;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .radio-container input:checked~.checkmark {
+    background-color: #e5e5e5;
+  }
+
+  .radio-container input:checked~.checkmark:after {
+    display: block;
+  }
+
+  .radio-container .checkmark:after {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: #57b846;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #e5e5e5;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .input-group {
+    position: relative;
+    margin-bottom: 12px;
+    margin-top: 7px;
+  }
+
+  .input-group-icon {
+    position: relative;
+  }
+
+  .input-icon {
+    position: absolute;
+    font-size: 18px;
+    color: #999;
+    right: 18px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  /* ==========================================================================
+   #SELECT2
+   ========================================================================== */
+  .select--no-search .select2-search {
+    display: none !important;
+  }
+
+  .rs-select2 .select2-container {
+    width: 100% !important;
+    outline: none;
+    background: #e0455f;
+    -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .rs-select2 .select2-container .select2-selection--single {
+    outline: none;
+    border: none;
+    height: 50px;
+    background: transparent;
+  }
+
+  .rs-select2 .select2-container .select2-selection--single .select2-selection__rendered {
+    line-height: 50px;
+    padding-left: 0;
+    color: #555;
+    font-size: 16px;
+    font-family: inherit;
+    padding-left: 22px;
+    padding-right: 50px;
+  }
+
+  .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow {
+    height: 50px;
+    right: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+
+  .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow b {
+    display: none;
+  }
+
+
+  .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow:after {
+    font-family: "Material-Design-Iconic-Font";
+    content: '\f2f9';
+    font-size: 24px;
+    color: #999;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+  }
+
+  button.submit {
+    margin: 10px;
+  }
+
+  .rs-select2 .select2-container.select2-container--open .select2-selection--single .select2-selection__arrow::after {
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+  }
+
+  .select2-container--open .select2-dropdown--below {
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e0e0e0;
+    margin-top: 5px;
+    overflow: hidden;
+  }
+
+  .select2-container--default .select2-results__option {
+    padding-left: 22px;
+  }
+
+  .GFG {
+    background-color: white;
+    border: 2px solid black;
+    color: green;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 10px 10px;
+    cursor: pointer;
+  }
+</style>
+
+<body>
+  <header id="header" class="d-flex align-items-center ">
+    <div class="container-fluid d-flex align-items-center justify-content-lg-between">
+      <a href="/" class="logo me-auto me-lg-0"><img src="assets/img/logo.jpg" alt="" class="img-fluid"></a>
+      <h1 class="logo me-auto me-lg-0"><a href="/">The Laali Project</a></h1>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto " href="/">Home</a></li>
+          <li><a class="nav-link scrollto active" href="/signup">Sign Up</a></li>
+          <li><a class="nav-link scrollto  " href="/login">Log In</a></li>
+          
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <div class="header-social-links d-flex align-items-center">
+        <a href="https://twitter.com/thelaaliproject?lang=en" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="https://www.facebook.com/thelaaliproject/" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/thelaaliproject/" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/the-laaliproject/?originalSubdomain=in" class="linkedin"><i
+            class="bi bi-linkedin"></i></i></a>
+      </div>
+
+    </div>
+  </header>
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" style="z-index:0">
+    <div class="container" style="z-index:1">
+      <header>Signup Form</header>
+
+      <div class="form-outer">
+        <% if(typeof err !='undefined' ){ %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong> Error </strong>
+              <%= err %>
+          </div>
+          <% } %>
+        <form action="/signup" method="POST">
+          <div class="page slide-page">
+            <div class="row row-space">
+              <div class="col-2">
+                <div class="input-group">
+                  <label class="label">Full name</label>
+                  <input class="input--style-4" style="background-color: #fff; border: 2px solid #e0455f;" type="text" name="name">
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="input-group">
+                  <label class="label">Education Qualification :</label>
+                  <div class="rs-select2 js-select-simple select--no-search">
+                    <select name="qualification">
+                      <option disabled="disabled" selected="selected">Choose option</option>
+                      <option value="Highschool">High School</option>
+                      <option value="Secondary Education">Secondary Education</option>
+                      <option value="Undergraduate">Undergraduate</option>
+                      <option value="Graduate">Graduate</option>
+                    </select>
+                    <div class="select-dropdown"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row row-space">
+              <div class="col-2">
+                <div class="input-group">
+                  <label class="label">Phone number
+                    <input class="input--style-4" style="background-color: #fff; border-radius: 0 15px 15px 0; border: 2px solid #e0455f; border-left: none;" type="tel" name="phone">
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="input-group">
+                  <label class="label">Age Group :</label>
+                  <div class="p-t-10">
+                    <select name="ageGroup">
+                      <option disabled="disabled" selected="selected">Choose option</option>
+                      <option value="12-18">12-18</option>
+                      <option value="above 18">above 18</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row row-space">
+              <div class="col-2">
+                <div class="input-group">
+                  <label class="label">Email</label>
+                  <input class="input--style-4" style="background-color: #fff; border: 2px solid #e0455f;" type="email" name="email">
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="input-group">
+                  <label class="label">Designation :</label>
+                  <div class="rs-select2 js-select-simple select--no-search">
+                    <select id="usertype" name="designation">
+                      <option disabled="disabled" selected="selected">Choose option</option>
+                      <option value="Mentor">Mentor</option>
+                      <option value="Mentee">Mentee</option>
+                      <option value="Alumni">Alumni</option>
+
+                    </select>
+                    <div class="select-dropdown"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row row-space">
+              <div class="col-2">
+                <div class="input-group">
+                  <label class="label">Password</label>
+                  <input class="input--style-4" style="background-color: #fff; border: 2px solid #e0455f;" id="password" type="password" onkeyup='check();' name="password">
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="input-group">
+                  <label class="label">Confirm Password <span id='message'></span></label>
+                  <input class="input--style-4" style="background-color: #fff; border: 2px solid #e0455f; border-left: none;" id="confirm_password" type="password" onkeyup='check();'
+                    name="confirmPassword">
+
+                </div>
+              </div>
+            </div>
+
+            <div class="field ">
+              <button type="submit" style="padding: 5px;" class="firstNext next ">Submit</button>
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+
+
+  </section>
+
+  <!-- End Hero -->
+
+  <!-- ======= Header ======= -->
+  <!-- End Header -->
+  <!-- ======= About Section ======= -->
+
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+  <script>
+      function display() {
+        if (document.getElementById('agegrp2').checked) {
+            console.log("hello");
+            document.getElementById("usertype").options[1].disabled = true;
+        }
+        else if (document.getElementById('agegrp1').checked){
+          console.log("hello");
+            document.getElementById("usertype").options[1].disabled = false;
+
+        }
+      };
+      
+
+
+  </script>
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/purecounter/purecounter.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var check = function () {
+      if (document.getElementById('password').value ==
+        document.getElementById('confirm_password').value) {
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('message').innerHTML = 'matching';
+      } else {
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerHTML = 'not matching';
+      }
+    }
+
+
+  </script>
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

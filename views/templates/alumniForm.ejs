@@ -1,0 +1,179 @@
+<%- include("header") %>
+  <body>
+
+    
+    <header id="header" class="d-flex align-items-center ">
+        <div class="container-fluid d-flex align-items-center justify-content-lg-between">
+          <a href="/" class="logo me-auto me-lg-0"><img src="assets/img/logo.jpg" alt="" class="img-fluid"></a>
+          <h1 class="logo me-auto me-lg-0"><a href="/">The Laali Project</a></h1>
+    
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <!-- <li><a class="nav-link scrollto " href="/">Home</a></li> -->
+              <!-- <li><a class="nav-link scrollto active" href="#lconnect">L connect</a></li> -->
+              <!-- <li><a class="nav-link scrollto" href="#mmfix">M-M Fix</a></li>
+              <li><a class="nav-link scrollto " href="#oopor">Opportunity Hub</a></li> -->
+              <li><a class="nav-link scrollto " href="/alumni/getdata">Profile</a></li>
+              <li><a class="nav-link scrollto active" href="/alumni/fillalumni">Fill Form</a></li>
+              <li><a class="nav-link scrollto " href="/alumni/viewalumni">Alumni</a></li>
+              <li><a class="nav-link scrollto " href="/alumni/displayblogs">Blogs</a></li>
+              <li><a class="nav-link scrollto " href="/logout">Log Out</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+    
+          <div class="header-social-links d-flex align-items-center">
+            <a href="https://twitter.com/thelaaliproject?lang=en" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="https://www.facebook.com/thelaaliproject/" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/thelaaliproject/" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/the-laaliproject/?originalSubdomain=in" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+          </div>
+    
+        </div>
+      </header>
+    <div class="main">
+        <% if(status=="pending") { %>
+            <h1>Waiting for approval</h1>
+            <% } %>
+            <% if(status=="success") { %>
+                <h1>Approval success</h1>
+                <% } %>
+                <% if(status=="didn't fill") { %>
+                    
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="regform"><h1>Alumni Form</h1></div>
+      <form
+        class="mt-4"
+        action="/alumni/fillalumni"
+        method="POST"
+      >
+        <div class="card p-0">
+          <div class="card-body p-0">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                name="company"
+                class="form-control"
+              />
+              <label for="floatingInput"
+                >Company
+                </label
+              >
+            </div>
+            <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="workexp"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >Work Experience
+                  </label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="city"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >City
+                  </label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="linkedin"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >LinkedIn
+                  </label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="twitter"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >Twitter
+                  </label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="qualification"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >Qualification
+                  </label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="skillset"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >Skill set
+                  </label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="organization"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >Organization
+                  </label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="awards_and_honours"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >Awards and Honours
+                  </label
+                >
+              </div>
+
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="phone_no"
+                  class="form-control"
+                />
+                <label for="floatingInput"
+                  >Phone No
+                  </label
+                >
+              </div>
+
+                
+              <button type="submit">Submit</button>
+          </div>
+        </div>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+</form>
+<% } %>
+
+</div>
+    <!-- End Footer -->
+  </body>
+</html>
